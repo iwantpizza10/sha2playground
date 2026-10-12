@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>SHA-2 Playground</title>
+    <style>
+      * {
+        font-family: sans-serif;
+        color: #ffe;
+      }
+
+      body, div {
+        background: #112;
+        margin: 8rem;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      h1 {
+        margin-bottom: 2rem;
+      }
+
+      option, select, textarea {
+        border: 1px solid #666;
+        border-radius: 5px;
+        background: #338;
+        padding: 4px 8px;
+      }
+      
+      div {
+        background: #223;
+        padding: 2rem;
+        border-radius: 25px;
+        margin: 0;
+      }
+
+      span {
+        font-family: monospace;
+      }
+    </style>
+  </head>
+
+  <body onload="hash()">
+    <h1>SHA-2 Playground</h1>
+    <div>
+      <textarea id="textinput" onkeyup="hash()" placeholder="Input"></textarea>
+
+      <br />
+      <br />
+
+      <select id="algo" onchange="hash()">
+        <option value="SHA-256">SHA-256</option>
+        <option value="SHA-384">SHA-384</option>
+        <option value="SHA-512">SHA-512</option>
+      </select>
+
+      <br />
+
+      Output:
+
+      <br />
+      <br />
+
+      <span id="output">(output)</span>
+    </div>
+
+    <script>
+      const input = document.getElementById('textinput');
+      const output = document.getElementById('output');
+      const algo = document.getElementById('algo');
+      const encoder = new TextEncoder();
+
+      async function hash() {
+        const data = encoder.encode(input.value);
+        const hash = await window.crypto.subtle.digest(algo.value, data);
+        const hex = new Uint8Array(hash).toHex();
+
+        output.innerText = split64(hex);
+      }
+
+      function split64(x) {
+        const letters = x.split('');
+        let output = '';
+
+        for (let i = 0; i < letters.length; i++) {
+          output += letters[i];
+
+          if (i % 16 == 15) output += "\n";
+        }
+
+        return output;
+      }
+    </script>
+  </body>
+</html>
