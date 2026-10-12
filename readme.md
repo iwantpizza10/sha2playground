@@ -1,5 +1,19 @@
 # sha2playground
-the silly lil website that lets you mess w/ sha-2 hashing algorithms!
+the silly lil website app thing that lets you mess w/ sha-2 hashing algorithms!
+
+made it by:
+1. making a quick "normal" page (index.html) w/ some bonus css/js for style n functionality ofc
+2. manually compressing the whole page (into compression.html) by getting rid of anything and everything i didnt need, down to (hopefully) every unneeded space character
+
+no i did not use a tool for the 'compression,' though i did use a javascript minifier to compare sizes because i was curious n ended up taking a technique from it:
+```js
+// original
+for(let i=0;i<x.length;i++){u+=x[i];if(i%16==15)u+="\n"};
+
+// new (horrible! but smart)
+for(let i=0;i<x.length;i++)u+=x[i],i%16==15&&(u+="\n");
+```
+
 you can see and use it by pasting this into your addressbar:
 
 ```
